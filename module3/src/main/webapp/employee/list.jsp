@@ -6,6 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>List Employees</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -206,21 +208,35 @@
             border-radius: 4px;
             transition: 0.8s;
         }
-
-        th {
+        th{
             text-align: center;
         }
     </style>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
     <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href=<c:url value="/HomePageServlet"/>>Trang chủ</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/employees">Quản lý nhân viên</a>
+                </li>
+                <c:url var="orderManager" value="/orders"/>
+                <li class="nav-item">
+                    <a class="nav-link" href="${orderManager}">Quản lý hóa đơn</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Quản lý khách hàng</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -261,9 +277,6 @@
                         <td><c:out value="${e.salary}"/></td>
                         <td><c:out value="${e.department.getDepartment()}"/></td>
                         <td>
-                            <a href="<c:url value="/employees?action=view&id=${e.getId()}"/>" class="view" title="View"
-                               data-toggle="tooltip"><i
-                                    class="material-icons">&#xE417;</i></a>
                             <a href="<c:url value="/employees?action=edit&id=${e.getId()}"/>" class="edit" title="Edit"
                                data-toggle="tooltip"><i
                                     class="material-icons">&#xE254;</i></a>
@@ -287,3 +300,15 @@
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

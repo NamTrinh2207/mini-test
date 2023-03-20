@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Nam
-  Date: 3/13/2023
-  Time: 8:25 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -79,6 +72,7 @@
             box-shadow: none !important;
             outline-width: 0
         }
+
         .btn-primary {
             color: #fff;
             background-color: #007bff;
@@ -94,53 +88,41 @@
         <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
             <h2>THÊM NHÂN VIÊN MỚI</h2>
             <div class="card">
-                <form method="post" class="form-card">
+                <form method="post" action="/employees?action=create" class="form-card">
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Mã NV<span
-                                class="text-danger"> *</span></label>
-                            <input type="text" id="code" name="code" placeholder="Mã nhân viên..." onblur="validate(1)">
-                        </div>
                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Họ và
                             tên
                             <span class="text-danger"> *</span></label> <input type="text" id="name" name="name"
                                                                                placeholder="Tên nhân viên..."
-                                                                               onblur="validate(2)"></div>
+                                                                               onblur="validate(1)"></div>
                     </div>
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Năm
-                            sinh
-                            <span class="text-danger"> *</span></label> <input type="text" id="date" name="date"
-                                                                               placeholder="Ngày-tháng-năm sinh..."
-                                                                               onblur="validate(3)">
+                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Địa
+                            chỉ
+
+                            <span class="text-danger"> *</span></label> <input type="text" id="address" name="address"
+                                                                               placeholder="Địa chỉ"
+                                                                               onblur="validate(2)">
                         </div>
                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">SĐT
-                            <span class="text-danger"> *</span></label> <input type="text" id="phone" name="phone"
+                            <span class="text-danger"> *</span></label> <input type="number" id="phone" name="phone"
                                                                                placeholder="Số điện thoại..."
-                                                                               onblur="validate(4)"></div>
+                                                                               onblur="validate(3)"></div>
                     </div>
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Email
-                            <span class="text-danger"> *</span></label> <input type="text" id="email" name="email"
-                                                                               placeholder="Email..."
+                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Lương
+                            <span class="text-danger"> *</span></label> <input type="number" id="salary" name="salary"
+                                                                               placeholder="Lương"
+                                                                               onblur="validate(4)">
+                        </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-12 flex-column d-flex"><label class="form-control-label px-3">Phòng
+                            <span class="text-danger"> *</span></label> <input type="text"
+                                                                               id="department"
+                                                                               name="department"
+                                                                               placeholder="Phòng"
                                                                                onblur="validate(5)">
-                        </div>
-                    </div>
-                    <div class="row justify-content-between text-left">
-                        <div class="form-group col-12 flex-column d-flex"><label class="form-control-label px-3">Địa chỉ
-                            <span class="text-danger"> *</span></label> <input type="text"
-                                                                               id="address"
-                                                                               name="address"
-                                                                               placeholder="Địa chỉ..."
-                                                                               onblur="validate(6)">
-                        </div>
-                    </div>
-                    <div class="row justify-content-between text-left">
-                        <div class="form-group col-12 flex-column d-flex"><label class="form-control-label px-3">Hình ảnh
-                            <span class="text-danger"> *</span></label> <input type="text"
-                                                                               id="image"
-                                                                               name="image"
-                                                                               placeholder="link ảnh..."
-                                                                               onblur="validate(6)">
                         </div>
                     </div>
                     <div class="row justify-content-end">
@@ -159,12 +141,12 @@
 </div>
 <script>
     function validate(val) {
-        v1 = document.getElementById("code");
-        v2 = document.getElementById("name");
-        v3 = document.getElementById("date");
-        v4 = document.getElementById("address");
-        v5 = document.getElementById("email");
-        v6 = document.getElementById("phone");
+        v1 = document.getElementById("name");
+        v2 = document.getElementById("address");
+        v3 = document.getElementById("phone");
+        v4 = document.getElementById("salary");
+        v5 = document.getElementById("department");
+        // v6 = document.getElementById("phone");
 
         flag1 = true;
         flag2 = true;

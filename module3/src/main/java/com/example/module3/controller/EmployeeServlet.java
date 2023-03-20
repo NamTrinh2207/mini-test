@@ -1,6 +1,8 @@
 package com.example.module3.controller;
 
+import com.example.module3.model.Department;
 import com.example.module3.model.Employee;
+import com.example.module3.service.department.DepartmentServiceImpl;
 import com.example.module3.service.employee.EmployeeService;
 
 import javax.servlet.*;
@@ -13,12 +15,8 @@ import java.util.List;
 
 @WebServlet(name = "EmployeeServlet", value = "/employees")
 public class EmployeeServlet extends HttpServlet {
-    EmployeeService iEcommerce;
-
-    @Override
-    public void init() {
-        iEcommerce = new EmployeeService();
-    }
+    private final EmployeeService iEcommerce = new EmployeeService();
+    private final DepartmentServiceImpl departmentService = new DepartmentServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,9 +34,6 @@ public class EmployeeServlet extends HttpServlet {
             case "delete":
                 deleteEmployee(request, response);
                 break;
-            case "view":
-                view(request, response);
-                break;
             default:
                 listEmployee(request, response);
         }
@@ -55,24 +50,12 @@ public class EmployeeServlet extends HttpServlet {
         }
     }
 
-    private void view(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            int id = Integer.parseInt(request.getParameter("id"));
-            Employee employee = iEcommerce.findById(id);
-            request.setAttribute("employee", employee);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("employee/views.jsp");
-            dispatcher.forward(request, response);
-        } catch (ServletException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private void editForm(HttpServletRequest request, HttpServletResponse response) {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
             Employee employee = iEcommerce.findById(id);
             RequestDispatcher dispatcher = request.getRequestDispatcher("employee/update.jsp");
-            request.setAttribute("employee", employee);
+            request.setAttribute("employees", employee);
             dispatcher.forward(request, response);
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
@@ -132,8 +115,10 @@ public class EmployeeServlet extends HttpServlet {
             String address = request.getParameter("address");
             String phone = request.getParameter("phone");
             long salary = Long.parseLong(request.getParameter("salary"));
-            Employee employee = new Employee(id, name, address, phone, salary);
+            Department department1 = departmentService.findById(id);
+            Employee employee = new Employee(name, address, phone, salary, department1);
             iEcommerce.update(id, employee);
+            request.setAttribute("employees", employee);
             RequestDispatcher dispatcher = request.getRequestDispatcher("employee/update.jsp");
             dispatcher.forward(request, response);
         } catch (ServletException | IOException | SQLException e) {
@@ -147,7 +132,9 @@ public class EmployeeServlet extends HttpServlet {
             String address = request.getParameter("address");
             String phone = request.getParameter("phone");
             long salary = Long.parseLong(request.getParameter("salary"));
-            Employee employee = new Employee(name, address, phone, salary);
+            String department = request.getParameter("department");
+            Department department1 = new Department(department);
+            Employee employee = new Employee(name, address, phone, salary, department1);
             iEcommerce.save(employee);
             request.getRequestDispatcher("employee/create.jsp").forward(request, response);
         } catch (ServletException | IOException e) {

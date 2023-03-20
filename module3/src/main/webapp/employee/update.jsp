@@ -1,13 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Nam
-  Date: 3/13/2023
-  Time: 8:26 PM
-  To change this template use File | Settings | File Templates.
---%>
 <html>
 <head>
-    <title>User Management Application</title>
+    <title> Management Application</title>
 </head>
 <body>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -102,54 +95,37 @@
             <div class="card">
                 <form method="post" class="form-card">
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-6 flex-column d-flex"><label
-                                class="form-control-label px-3">ID<span
-                                class="text-danger"> *</span></label>
-                            <input type="text" id="id" name="id" readonly
-                                   value="<c:out value='${requestScope.employee.id}'/>"
-                                   onblur="validate(1)">
-                        </div>
-                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Mã NV<span
-                                class="text-danger"> *</span></label>
-                            <input type="text" id="code" name="code"
-                                   value="<c:out value='${requestScope.employee.code}'/>" onblur="validate(1)">
-                        </div>
                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Họ và
                             tên
                             <span class="text-danger"> *</span></label> <input type="text" id="name" name="name"
-                                                                               value="<c:out value='${requestScope.employee.name}'/>"
+                                                                               value="<c:out value='${requestScope.employees.name}'/>"
                                                                                onblur="validate(2)"></div>
-                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Năm
-                            sinh
-                            <span class="text-danger"> *</span></label> <input type="text" id="date" name="date"
-                                                                               value="<c:out value='${requestScope.employee.date}'/>"
+                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Điạ
+                            chỉ
+                            <span class="text-danger"> *</span></label> <input type="text" id="address" name="address"
+                                                                               value="<c:out value='${requestScope.employees.address}'/>"
                                                                                onblur="validate(3)">
                         </div>
                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">SĐT
                             <span class="text-danger"> *</span></label> <input type="text" id="phone" name="phone"
-                                                                               value="<c:out value='${requestScope.employee.phone}'/>"
+                                                                               value="<c:out value='${requestScope.employees.phone}'/>"
                                                                                onblur="validate(4)"></div>
-                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Email
-                            <span class="text-danger"> *</span></label> <input type="text" id="email" name="email"
-                                                                               value="<c:out value='${requestScope.employee.email}'/>"
-                                                                               onblur="validate(5)"></div>
                     </div>
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-12 flex-column d-flex"><label class="form-control-label px-3">Địa chỉ
+                        <div class="form-group col-12 flex-column d-flex"><label class="form-control-label px-3">Lương
                             <span class="text-danger"> *</span></label> <input type="text"
-                                                                               id="address"
-                                                                               name="address"
-                                                                               value="<c:out value='${requestScope.employee.address}'/>"
+                                                                               id="salary"
+                                                                               name="salary"
+                                                                               value="<c:out value='${requestScope.employees.salary}'/>"
                                                                                onblur="validate(6)">
                         </div>
                     </div>
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-12 flex-column d-flex"><label class="form-control-label px-3">Hình
-                            ảnh
+                        <div class="form-group col-12 flex-column d-flex"><label class="form-control-label px-3">Phòng
                             <span class="text-danger"> *</span></label> <input type="text"
-                                                                               id="image"
-                                                                               name="image"
-                                                                               value="<c:out value='${requestScope.employee.image}'/>"
+                                                                               id="department"
+                                                                               name="salary"
+                                                                               value="<c:out value='${requestScope.employees.department.getDepartment()}'/>"
                                                                                onblur="validate(6)">
                         </div>
                     </div>

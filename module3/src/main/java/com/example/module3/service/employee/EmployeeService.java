@@ -3,6 +3,7 @@ package com.example.module3.service.employee;
 import com.example.module3.connection.CreateDatabase;
 import com.example.module3.model.Department;
 import com.example.module3.model.Employee;
+import com.example.module3.service.department.DepartmentServiceImpl;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,20 +11,21 @@ import java.util.List;
 
 public class EmployeeService implements IEmployeeService {
     private final Connection connection;
+    private final DepartmentServiceImpl departmentService = new DepartmentServiceImpl();
 
     {
         try {
             connection = CreateDatabase.getConnection();
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static final String INSERT_EMPLOYEE = "INSERT INTO employee (name,address,phone, salary) VALUES (?,?,?,?);";
+    private static final String INSERT_EMPLOYEE = "insert into employee(name, address, phone, salary, id_department) values (?,?,?,?,?);";
     private static final String SELECT_EMPLOYEE_BY_ID = "select * from employee where id =?";
-    private static final String SELECT_ALL_EMPLOYEES = "select * from employee";
+    private static final String SELECT_ALL_EMPLOYEES = "select * from employee join department d on d.id = employee.id_department;";
     private static final String DELETE_EMPLOYEE = "delete from employee where id = ?;";
-    private static final String UPDATE_EMPLOYEE = "update employee set name = ?,address = ?,phone = ?, salary = ? where id = ?;";
+    private static final String UPDATE_EMPLOYEE = "UPDATE employee, department SET name = ?, address = ?, phone = ? , salary = ? , department = ? where employee.id_department = ?;";
 
     @Override
     public List<Employee> findAll() {
@@ -38,9 +40,8 @@ public class EmployeeService implements IEmployeeService {
                     String address = resultSet.getString("address");
                     String phone = resultSet.getString("phone");
                     long salary = resultSet.getLong("salary");
-                    int id_department = resultSet.getInt("id");
                     String department = resultSet.getString("department");
-                    Department department1 = new Department(id_department, department);
+                    Department department1 = new Department(department);
                     employees.add(new Employee(id, name, address, phone, salary, department1));
                 }
                 return employees;
@@ -83,7 +84,8 @@ public class EmployeeService implements IEmployeeService {
                 statement.setString(2, employee.getAddress());
                 statement.setString(3, employee.getPhone());
                 statement.setLong(4, employee.getSalary());
-                statement.setInt(5, id);
+                statement.setString(5, employee.getDepartment().getDepartment());
+                statement.setObject(6, id);
                 statement.executeUpdate();
             } catch (SQLException e) {
                 System.out.println("Query error");
@@ -112,6 +114,7 @@ public class EmployeeService implements IEmployeeService {
             preparedStatement.setString(2, employee.getAddress());
             preparedStatement.setString(3, employee.getPhone());
             preparedStatement.setLong(4, employee.getSalary());
+            preparedStatement.setObject(5, employee.getDepartment().getDepartment());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Query error");
